@@ -16,7 +16,7 @@ var game = {
             hp : 75,
             attack : 20,
             counterAttack : 40,
-            imgSrc : "./assets/images/obiwan.jpg"
+            imgSrc : "./assets/images/yoda.jpg"
         },
 
         "Vader" : {
@@ -24,7 +24,7 @@ var game = {
             hp : 125,
             attack: 30,
             counterAttack: 30,
-            imgSrc : "./assets/images/obiwan.jpg"
+            imgSrc : "./assets/images/vader.jpg"
         },
 
         "Mace" : {
@@ -32,32 +32,32 @@ var game = {
             hp: 100,
             attack: 25,
             counterAttack: 25,
-            imgSrc : "./assets/images/obiwan.jpg"
+            imgSrc : "./assets/images/mace.jpg"
         }
     },
 
     //use character array to generate divs with images and stats
     createCharacterCards: function (){
-        //loop over characters array
+        //loop through characters object
         for (var character in this.characters) {
             //make sure to exclude inherited properties
             if (this.characters.hasOwnProperty(character)) {
                 //make a new card
                 var card = $("<div></div>");
                 card.addClass("card");
-                //card.text(this.characters[character].name);
                 card.html(`
                     <img src="${this.characters[character].imgSrc}">
-                    <h2>${this.characters[character].name}</h2>
-                    <h2>ATK:${this.characters[character].attack}</h2>
-                    <h2>DEF:${this.characters[character].counterAttack}</h2>
-                    <h2>HP:${this.characters[character].hp}</h2>
+                    <div class="card-name">${this.characters[character].name}</div>
+                    <div class="card-text">
+                        <div>DEF:${this.characters[character].counterAttack}</div>
+                        <span>ATK:${this.characters[character].attack} </span><span>HP:${this.characters[character].hp}</span>
+                    </div>
                 `);
                 card.draggable({
                     helper : "original",
                     revert : true,
+                    scroll : false,
                 });
-                //card.attr("draggable", true);
             
                 $("#play-area").append(card);
             } 
@@ -68,6 +68,10 @@ var game = {
     game.createCharacterCards();
 
     //choose a character, assign playerCharacter
+
+    $(".card").on("click", function() {
+
+    });
 
     //maybe add not chosen characters to enemies array
 

@@ -1,18 +1,62 @@
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC|Audiowide|Electrolize|Russo+One');
+
+/* font-family: 'Russo One', sans-serif;
+font-family: 'Audiowide', cursive;
+font-family: 'Alegreya Sans SC', sans-serif;
+font-family: 'Electrolize', sans-serif; */
+
+body {
+    background-color: grey;
+}
+
+#play-area {
+    width: 80%;
+    margin: auto;
+    background-image: url("../images/spacebackground.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: auto;  
+
+}
+
 .card {
     width: 120px;
     height: 160px;
+    margin: 15px;
     background-color: grey;
-    border: 2px solid #000;
+    border: 5px solid rgb(17, 17, 70);
+    border-radius: 7px;
     text-align: center;
+    font-family: 'Electrolize', sans-serif;
+    font-weight: bold;
+    line-height: 1.5;
 }
 
 .card img {
-    width: 90%;
-    margin-top: 5px;
-    border: 1px solid gold;
+    width: 85%;
+    height: 40%;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    border: 2px solid gold;
+    border-radius: 7px;
 }
 
 .card .card-name {
+    width: 100%;
     text-align: center;
+    font-family: 'Russo One', sans-serif;
+    font-weight: normal;
+    margin-top: -8px;
+    background-color: rgb(34, 34, 143);
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+    border-radius: 0px 0px 5px 5px;
+    
 }
+
+.card .card-text {
+    margin-top: 5px;
+    font-size: 14px;
+}
+
 
