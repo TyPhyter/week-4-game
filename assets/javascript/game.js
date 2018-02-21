@@ -8,6 +8,7 @@ var game = {
             hp : 100,
             attack : 25,
             counterAttack : 25,
+            imgSrc : "./assets/images/obiwan.jpg"
         },
     
         "Yoda" : {
@@ -15,6 +16,7 @@ var game = {
             hp : 75,
             attack : 20,
             counterAttack : 40,
+            imgSrc : "./assets/images/obiwan.jpg"
         },
 
         "Vader" : {
@@ -22,6 +24,7 @@ var game = {
             hp : 125,
             attack: 30,
             counterAttack: 30,
+            imgSrc : "./assets/images/obiwan.jpg"
         },
 
         "Mace" : {
@@ -29,24 +32,37 @@ var game = {
             hp: 100,
             attack: 25,
             counterAttack: 25,
+            imgSrc : "./assets/images/obiwan.jpg"
         }
     },
 
     //use character array to generate divs with images and stats
     createCharacterCards: function (){
         //loop over characters array
-        for (const character in this.characters) {
+        for (var character in this.characters) {
             //make sure to exclude inherited properties
             if (this.characters.hasOwnProperty(character)) {
-              console.log(this.characters[character].name);
-              //make a new card
-              var card = $("<div></div>");
-              card.addClass("card");
-              card.text(this.characters[character].name);
-              $("#play-area").append(card);
+                //make a new card
+                var card = $("<div></div>");
+                card.addClass("card");
+                //card.text(this.characters[character].name);
+                card.html(`
+                    <img src="${this.characters[character].imgSrc}">
+                    <h2>${this.characters[character].name}</h2>
+                    <h2>ATK:${this.characters[character].attack}</h2>
+                    <h2>DEF:${this.characters[character].counterAttack}</h2>
+                    <h2>HP:${this.characters[character].hp}</h2>
+                `);
+                card.draggable({
+                    helper : "original",
+                    revert : true,
+                });
+                //card.attr("draggable", true);
+            
+                $("#play-area").append(card);
             } 
-          }
         }
+    }
     }
 
     game.createCharacterCards();

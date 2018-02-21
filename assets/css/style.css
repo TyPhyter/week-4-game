@@ -1,6 +1,18 @@
 .card {
-    width: 85px;
-    height: 110px;
+    width: 120px;
+    height: 160px;
     background-color: grey;
     border: 2px solid #000;
+    text-align: center;
 }
+
+.card img {
+    width: 90%;
+    margin-top: 5px;
+    border: 1px solid gold;
+}
+
+.card .card-name {
+    text-align: center;
+}
+
