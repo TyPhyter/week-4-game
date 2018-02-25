@@ -1,23 +1,50 @@
 <!DOCTYPE html>
 <html>
-    <head>
+
+<head>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <title>Star Wars</title>
+</head>
+
+<body>
+    <header>
+    </header>
+
+    <div class="play-area">
+        <!-- Trigger/Open The Modal -->
+        <button id="myBtn">Open Modal</button>
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Some text in the Modal..</p>
+            </div>
+
+        </div>
+        <!-- Enemy Card Div -->
+        <div id="enemies"></div>
         
-        <link rel="stylesheet" href="assets/css/style.css">
-        <link rel="stylesheet" href="assets/css/reset.css">
-        <title>Star Wars</title>
-    </head>
-    <body>
-        <header>
-        </header>
+        <!-- Drop target for player card -->
+        <div id="droppable">Drop here</div>
+        
+        <!-- Footer for narrator and stats/options -->
+        <footer class="footer">
+            <section class="narrator">
+                <img src="assets/images/r2d2.png">
+            </section>
+        </footer>
+    </div>
 
-        <div id="play-area"></div>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+        crossorigin="anonymous"></script>
+    <script src="assets/javascript/game.js"></script>
+</body>
 
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
-        <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
-            integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
-            crossorigin="anonymous"></script>
-        <script src="assets/javascript/game.js"></script>
-    </body>
 </html>

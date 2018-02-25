@@ -9,19 +9,22 @@ body {
     background-color: grey;
 }
 
-#play-area {
+.play-area {
     width: 80%;
+    height: 100vh;
     margin: auto;
+    position: relative;
     background-image: url("../images/spacebackground.jpg");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: auto;  
+    /* background-size: 100%;   */
+    z-index: 0;
 
 }
 
 .card {
     width: 120px;
-    height: 160px;
+    height: 180px;
     margin: 15px;
     background-color: grey;
     border: 5px solid rgb(17, 17, 70);
@@ -30,11 +33,13 @@ body {
     font-family: 'Electrolize', sans-serif;
     font-weight: bold;
     line-height: 1.5;
+    display: inline-block;
+    user-select: none;
 }
 
 .card img {
     width: 85%;
-    height: 40%;
+    height: 35%;
     margin-top: 10px;
     margin-bottom: 0px;
     border: 2px solid gold;
@@ -49,9 +54,15 @@ body {
     margin-top: -8px;
     background-color: rgb(34, 34, 143);
     border-top: 2px solid black;
-    border-bottom: 2px solid black;
+    border-bottom: 3px solid black;
     border-radius: 0px 0px 5px 5px;
-    
+    color: white;
+    text-shadow:
+        2px 2px 0 #000,
+      -1px -1px 0 #000,  
+       1px -1px 0 #000,
+       -1px 1px 0 #000,
+        1px 1px 0 #000;
 }
 
 .card .card-text {
@@ -59,4 +70,96 @@ body {
     font-size: 14px;
 }
 
+.card-div {
+    text-align: center;
+}
 
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer .narrator {
+    float: left;
+    margin-left: 0;
+    
+}
+
+.footer .narrator img {
+    width: 30%;
+    border: 3px solid black;
+}
+
+.player {
+    /* position: absolute !important;
+    bottom: 225px;
+    top: auto; */
+    /* horizontal center */
+    /* left: 0px;
+    right: 0px;
+    margin: auto; */
+    z-index: 2;
+}
+
+#droppable {
+    position: absolute;
+    left: 250px;
+    bottom: 200px;
+    width: 120px;
+    height: 180px;
+    /* horizontal center */
+    left: 0px;
+    right: 0px;
+    margin: auto;
+    background: #999;
+    color: #fff;
+    padding: 10px;
+}
+
+#enemies {
+    display: flex;
+    justify-content: center;
+}
+
+
+
+/* ================================================ modal stuff ============================================================*/
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
