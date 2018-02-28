@@ -13,6 +13,7 @@ var game = {
         "Obi" : {
             key: "Obi",
             name : "Obi-Wan",
+            baseHP: 100,
             hp : 100,
             baseAttack : 25,
             attack : 25,
@@ -24,6 +25,7 @@ var game = {
         "Yoda" : {
             key : "Yoda",
             name : "Yoda",
+            baseHP : 75,
             hp : 75,
             baseAttack : 20,
             attack : 20,
@@ -35,6 +37,7 @@ var game = {
         "Vader" : {
             key : "Vader",
             name : "Darth Vader",
+            baseHP : 125,
             hp : 125,
             baseAttack : 30,
             attack: 30,
@@ -46,6 +49,7 @@ var game = {
         "Mace" : {
             key : "Mace",
             name : "Mace Windu",
+            baseHP : 75,
             hp : 75,
             baseAttack : 25,
             attack : 25,
@@ -60,7 +64,7 @@ var game = {
 
     //use character array to generate divs with images and stats
     createCharacterCards: function (){
-        var cardDiv = $("<div class='card-div'></div>");
+        var cardDiv = $(".card-div");
         $(".play-area").append(cardDiv);
         //loop through characters object
         for (var character in this.characters) {
@@ -146,6 +150,27 @@ var game = {
         }
     },
 
+    newGame : function() {
+        //destroy cards
+        $(".card").remove();
+        //reset health and attack
+        for (var character in this.characters){
+            if(this.characters.hasOwnProperty(character)){
+                this.characters[character].hp = this.characters[character].baseHP;
+                this.characters[character].attack = this.characters[character].baseAttack;
+                this.characters[character].role = "neutral";
+            }
+        }
+        //reset state
+        game.state = "choosePlayer";
+        $("#enemies-header").css("opacity", 0);
+        //make new cards
+        this.createCharacterCards();
+        $("#droppable").droppable("enable");
+        $("#myModal").css("display", "none");
+
+    }
+
 }
 $(function(){//doc ready abbreviation
 // this will probably all go into newGame function
@@ -166,7 +191,6 @@ $("#droppable").droppable({
             //disable the drop target after a card is selected
             $this.droppable("disable");
             $("#enemies-header").fadeTo(2000, 1);
-            $("#hero-footer").fadeTo(2000, 1);
         }
         $(".card").each(function(){
             console.log(this);
