@@ -11,7 +11,7 @@ body {
 
 .play-area {
     width: 80vw;
-    height: 90vh;
+    height: 95vh;
     margin: 25px auto;
     position: relative;
     background-image: url("../images/spacebackground.jpg");
@@ -175,15 +175,15 @@ body {
 
 /* Modal Content/Box */
 .modal-content {
-    background-color: #fefefe;
+    background-color: grey;
     margin: 50px auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid rgb(54, 53, 53);
     width: 80%; /* Could be more or less, depending on screen size */
     text-align: center; 
 }
 
 #modal-img {
-    width:  70vw;
+    width:  60vw;
 }
 
