@@ -147,6 +147,7 @@ var game = {
     },
 
 }
+$(function(){//doc ready abbreviation
 // this will probably all go into newGame function
 game.createCharacterCards();
 var txt = "Drag and drop a card in the area above to select your hero!";
@@ -238,5 +239,7 @@ $(".card").on("click", function(evt) {
         clicked.classList.add("target");
         //attack function(player, target);
     }
+
+});
 
 });
