@@ -10,14 +10,14 @@ body {
 }
 
 .play-area {
-    width: 80%;
-    height: 100vh;
-    margin: auto;
+    width: 80vw;
+    height: 90vh;
+    margin: 25px auto;
     position: relative;
     background-image: url("../images/spacebackground.jpg");
     background-position: center;
-    background-repeat: no-repeat;
-    /* background-size: 100%;   */
+    /* background-repeat: no-repeat; */
+    background-size: cover;  
     z-index: 0;
 
 }
@@ -66,11 +66,12 @@ body {
 }
 
 .card .card-text {
-    margin-top: 5px;
+    margin-top: 15px;
     font-size: 14px;
 }
 
 .card-div {
+    margin-top: 80px;
     text-align: center;
 }
 
@@ -78,34 +79,47 @@ body {
     position: absolute;
     bottom: 0;
     width: 100%;
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: nowrap;
 }
 
 .footer .narrator {
     float: left;
     margin-left: 0;
-    
+    width: 20%;
 }
 
 .footer .narrator img {
-    width: 30%;
+    width: 100%;
     border: 3px solid black;
+    margin-bottom: -3px;
+}
+
+.footer .text-box {
+    /* float: left; */
+    width: 80%;
+    height: 50px;
+    background-color: rgb(10, 10, 10);
+    color: white;
+    font-family: 'Electrolize', sans-serif;
+    border-top: 3px solid black;
+    margin-left: 6px;
+    padding-top: 10px;
+}
+
+.footer .text-box-inner {
+    margin-left: 10px;
+    line-height: 2;
 }
 
 .player {
-    /* position: absolute !important;
-    bottom: 225px;
-    top: auto; */
-    /* horizontal center */
-    /* left: 0px;
-    right: 0px;
-    margin: auto; */
     z-index: 2;
 }
 
 #droppable {
     position: absolute;
-    left: 250px;
-    bottom: 200px;
+    bottom: 150px;
     width: 120px;
     height: 180px;
     /* horizontal center */
@@ -115,11 +129,30 @@ body {
     background: #999;
     color: #fff;
     padding: 10px;
+    font-family: 'Audiowide', cursive;
+    text-align: center;
 }
 
 #enemies {
     display: flex;
     justify-content: center;
+}
+
+#enemies-header {
+    padding-top: 25px;
+    width: 100%;
+    text-align: center; 
+    font-family: 'Audiowide', cursive;
+    font-size: 20px;
+    opacity: 0;
+}
+
+#hero-footer {
+    position: absolute;
+    bottom: 100px;
+    font-family: 'Audiowide', cursive;
+    font-size: 20px;
+    opacity: 0;
 }
 
 
@@ -130,7 +163,7 @@ body {
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    z-index: 10; /* Sit on top */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
@@ -143,23 +176,14 @@ body {
 /* Modal Content/Box */
 .modal-content {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 50px auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%; /* Could be more or less, depending on screen size */
+    text-align: center; 
 }
 
-/* The Close Button */
-.close {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+#modal-img {
+    width:  70vw;
 }
 
-.close:hover,
-.close:focus {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
-}

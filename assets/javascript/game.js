@@ -1,6 +1,6 @@
 //let's fade in a placemat after character is chosen!    
-//should characters store a reference to their div? so characters[character.div].html("...") can be called to update cards?
-//can't absolute position draggables because of how jquery UI draggable works with top and left; probably translate to fix;
+
+//TO DO: jquery UI Touch Punch hack for mobile performance
 var game = {
     characters : {
         //does this really need to be an object??
@@ -14,6 +14,7 @@ var game = {
             key: "Obi",
             name : "Obi-Wan",
             hp : 100,
+            baseAttack : 25,
             attack : 25,
             counterAttack : 25,
             imgSrc : "./assets/images/obiwan.jpg",
@@ -24,6 +25,7 @@ var game = {
             key : "Yoda",
             name : "Yoda",
             hp : 75,
+            baseAttack : 20,
             attack : 20,
             counterAttack : 40,
             imgSrc : "./assets/images/yoda.jpg",
@@ -34,6 +36,7 @@ var game = {
             key : "Vader",
             name : "Darth Vader",
             hp : 125,
+            baseAttack : 30,
             attack: 30,
             counterAttack: 30,
             imgSrc : "./assets/images/vader.jpg",
@@ -43,7 +46,8 @@ var game = {
         "Mace" : {
             key : "Mace",
             name : "Mace Windu",
-            hp : 100,
+            hp : 75,
+            baseAttack : 25,
             attack : 25,
             counterAttack : 25,
             imgSrc : "./assets/images/mace.jpg",
@@ -65,7 +69,7 @@ var game = {
                 //make a new card
                 var card = $("<div></div>");
                 card.addClass("card");
-                card.attr('id', this.characters[character].key);
+                card.attr("id", this.characters[character].key);
                 card.html(`
                     <img src="${this.characters[character].imgSrc}">
                     <div class="card-name">${this.characters[character].name}</div>
@@ -79,27 +83,89 @@ var game = {
                     helper : "original",
                     revert : "invalid",
                     scroll : false,
+                    //center helper on cursor
+                    drag: function(event, ui){
+                        $(this).draggable("instance").offset.click = {
+                            left: Math.floor(ui.helper.width() / 2),
+                            top: Math.floor(ui.helper.height() / 2)
+                        }; 
+                    },
                 });
             
                 $(cardDiv).append(card);
             } 
         }
-    }
-}
+    },
 
+    updateCards : function (){
+        console.log("updateCards");
+        
+        for (var character in this.characters) {
+            //make sure to exclude inherited properties
+            if (this.characters.hasOwnProperty(character) && this.characters[character].hp > 0) {
+                //yikes, this selector makes my eyes hurt
+                $(`#${this.characters[character].key}`).html(`
+                    <img src="${this.characters[character].imgSrc}">
+                    <div class="card-name">${this.characters[character].name}</div>
+                    <div class="card-text">
+                        <div>DEF:${this.characters[character].counterAttack}</div>
+                        <span style="float: left"> ATK:${this.characters[character].attack} </span><span style="float: right">HP:${this.characters[character].hp} </span>
+                    </div>
+                `);
+            }
+        }
+        
+    },
+
+    displayModal : function(src) {
+        $("#modal-img").attr("src", src);
+        $("#myModal").css("display", "block");
+    },
+
+    battle : function (player, target){
+        console.log(`Battle occured between ${player.name} and ${target.name}`);
+        target.hp = target.hp - player.attack;
+        player.attack += player.baseAttack;
+        //only execute counter attack if enemy doesn't die from player attack
+        if(target.hp > 0){
+            player.hp -= target.counterAttack;
+        }else if (target.hp <= 0){
+            //potential timing issues here, but it seems to work for now
+            $(`#${target.key}`).toggle("explode");
+            $(`#${target.key}`).remove();
+            // setTimeout($(`#${target.key}`).remove(), 1000);
+            if ($('#enemies').is(':empty')) {
+                this.displayModal("./assets/images/vader-victory.jpeg");
+            }
+        }
+
+        if(player.hp > 0){
+            this.updateCards();
+        }else if(player.hp <= 0){
+            this.displayModal("./assets/images/dontdie.jpg");
+        }
+    },
+
+}
+// this will probably all go into newGame function
 game.createCharacterCards();
+var txt = "Drag and drop a card in the area above to select your hero!";
+$(".text-box-inner").text("Drag and drop a card in the area above to select your hero!");
+
 // https://stackoverflow.com/questions/26746823/jquery-ui-drag-and-drop-snap-to-center
-$( "#droppable" ).droppable({
+$("#droppable").droppable({
     drop: function(event, ui) {
         var $this = $(this);
         if(game.state === "choosePlayer"){
-            console.log(ui.draggable[0]);
             //ui.draggable is an array, so use [0] to acccess the first(in this case only) member
             game.characters[ui.draggable[0].id].role = "player";
             ui.draggable[0].classList.add("player"); //set z index to top and any other styling;
             game.state = "chooseTarget";
+            $(".text-box-inner").text("Click and drag from your hero to draw your lightsaber and attack an enemy!");
             //disable the drop target after a card is selected
             $this.droppable("disable");
+            $("#enemies-header").fadeTo(2000, 1);
+            $("#hero-footer").fadeTo(2000, 1);
         }
         $(".card").each(function(){
             console.log(this);
@@ -109,7 +175,18 @@ $( "#droppable" ).droppable({
                 //move this to the enemies div, destroy draggable properties, initialize droppable
                 $(this).appendTo("#enemies");
                 $(this).draggable("destroy");
-                $(this).droppable()
+                $(this).droppable({
+                    drop: function(event, ui){
+                        //battle function
+                        console.log(`${game.characters[ui.draggable[0].id].name} attacked ${game.characters[this.id].name}`);
+                        game.battle(game.characters[ui.draggable[0].id], game.characters[this.id]);
+                    }
+                });
+            }else if (game.characters[this.id].role === "player"){
+                //set the draggable helper to a lightsaber for targetting
+                $(this).draggable("option", "helper", function(){
+                    return $("<img src='./assets/images/blue_lightsaber_trans.png' width='100px' style='z-index:3'>");
+                });
             }
         });
         //position player card last cuz reasons
@@ -124,16 +201,13 @@ $( "#droppable" ).droppable({
 // Get the modal
 var modal = document.getElementById('myModal');
 
-// Get the button that opens the modal
-var btn = document.getElementById("myBtn");
-
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on the button, open the modal 
-btn.onclick = function() {
-    modal.style.display = "block";
-}
+// btn.onclick = function() {
+//     modal.style.display = "block";
+// }
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
@@ -166,11 +240,3 @@ $(".card").on("click", function(evt) {
     }
 
 });
-    //move divs to appropriate areas of the screen
-
-    //click enemy to target
-
-    //click attack (or something cooler) to initiate attack sequence
-
-    //decrement enemy hp by player attack value, vis versa, and increase attack
-        //if hp <=0 thing dies

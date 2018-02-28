@@ -14,29 +14,36 @@
 
     <div class="play-area">
         <!-- Trigger/Open The Modal -->
-        <button id="myBtn">Open Modal</button>
+
 
         <!-- The Modal -->
         <div id="myModal" class="modal">
 
             <!-- Modal content -->
             <div class="modal-content">
-                <span class="close">&times;</span>
-                <p>Some text in the Modal..</p>
+                <!-- <span class="close">&times;</span> -->
+                <img id="modal-img">
+                <!-- <button id="new-game">New Game</button> -->
             </div>
 
         </div>
         <!-- Enemy Card Div -->
+        <div id="enemies-header">______ENEMIES______</div>
+        
         <div id="enemies"></div>
 
         <!-- Drop target for player card -->
-        <div id="droppable">Drop here</div>
+        <div id="droppable">Drag 'n Drop Your Hero Here</div>
+        <div id="hero-footer">HERO</div>
         
         <!-- Footer for narrator and stats/options -->
         <footer class="footer">
-            <section class="narrator">
+            <span class="narrator">
                 <img src="assets/images/r2d2.png">
-            </section>
+            </span>
+            <span class="text-box">
+                <p class="text-box-inner"></p>
+            </span>
         </footer>
     </div>
 
